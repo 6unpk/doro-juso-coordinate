@@ -1,4 +1,4 @@
-export interface GetAddressCoordinateQuery {
+export interface AddressQuery {
     sigunguCode: number;
     roadNumberCode: number;
     mainNumber: number;
@@ -7,4 +7,12 @@ export interface GetAddressCoordinateQuery {
 
 export interface DetailAddress {
 
+}
+
+export interface GetAddressBody {
+    address: Array<AddressQuery>
+}
+
+export interface SortQuery {
+    sort: 'ASC' | 'DESC'
 }

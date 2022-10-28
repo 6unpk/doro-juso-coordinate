@@ -1,5 +1,6 @@
 import fastify, {FastifyInstance} from 'fastify'
-import {DataTypes, Sequelize} from "sequelize";
+import {Sequelize} from "sequelize";
+import fastifyCaching from "@fastify/caching";
 
 export const server: () => Promise<FastifyInstance> = (async () => {
     const server: FastifyInstance = await fastify();
@@ -10,6 +11,11 @@ export const server: () => Promise<FastifyInstance> = (async () => {
     });
 
     await server.decorate('sequelize', sequelize);
+
+    server.register(
+        fastifyCaching,
+        {privacy: fastifyCaching.privacy.PRIVATE},
+    );
 
     return server
 })
