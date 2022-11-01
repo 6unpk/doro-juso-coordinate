@@ -4,11 +4,14 @@ WORKDIR /app
 
 RUN apt-get update
 RUN apt-get install -y curl
+# Install local DB
+RUN mkdir db
+RUN curl https://s3.ap-northeast-2.amazonaws.com/6unu.net/doro-juso.db > db/doro-juso.db
 
-RUN npm ci
+COPY ./ ./
+
+RUN npm install
 
 EXPOSE 9537
 
-# Install local DB
-CMD ["mkdir", "db"]
-CMD ["curl", "https://s3.ap-northeast-2.amazonaws.com/6unu.net/doro-juso.db", ">", "db/doro-juso.db"]
+ENTRYPOINT ["npm", "run", "start:prod"]
